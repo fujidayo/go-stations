@@ -5,8 +5,9 @@ import (
 	"net/http"
 	"os"
 	"time"
-
+	"github.com/TechBowl-japan/go-stations/service"
 	"github.com/TechBowl-japan/go-stations/db"
+	"github.com/TechBowl-japan/go-stations/handler"
 )
 
 func main() {
@@ -51,6 +52,8 @@ func realMain() error {
 	mux := http.NewServeMux()
 
 	// TODO: ここから実装を行う
-
+	mux.HandleFunc("/healthz", http.HandlerFunc(handler.NewHealthzHandler().ServeHTTP))
+	mux.HandleFunc("/todos", http.HandlerFunc(handler.NewTODOHandler(service.NewTODOService(todoDB)).ServeHTTP))
+	log.Fatal(http.ListenAndServe(port, mux))
 	return nil
 }
