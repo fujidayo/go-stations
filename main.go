@@ -1,13 +1,13 @@
 package main
 
 import (
+	"github.com/TechBowl-japan/go-stations/db"
+	"github.com/TechBowl-japan/go-stations/handler"
+	"github.com/TechBowl-japan/go-stations/service"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"github.com/TechBowl-japan/go-stations/service"
-	"github.com/TechBowl-japan/go-stations/db"
-	"github.com/TechBowl-japan/go-stations/handler"
 )
 
 func main() {

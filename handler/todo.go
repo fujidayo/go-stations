@@ -25,6 +25,7 @@ func NewTODOHandler(svc *service.TODOService) *TODOHandler {
 // Create handles the endpoint that creates the TODO.
 func (h *TODOHandler) Create(ctx context.Context, req *model.CreateTODORequest) (*model.CreateTODOResponse, error) {
 	todo, err := h.svc.CreateTODO(ctx, req.Subject, req.Description)
+	log.Println(todo.Subject)
 	if err != nil {
 		log.Println(err)
 	}
@@ -56,14 +57,17 @@ func (h *TODOHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		json.NewDecoder(r.Body).Decode(&req)
 		if req.Subject == "" {
 			w.WriteHeader(http.StatusBadRequest)
-		} else {
-			create, err := h.Create(r.Context(), req)
-			response, err := json.Marshal(create)
-			if err != nil {
-				log.Println(err)
-			}
-			w.WriteHeader(http.StatusOK)
-			w.Write(response)
+			return
 		}
+		create, err := h.Create(r.Context(), req)
+		response, err := json.Marshal(create)
+		if err != nil {
+			log.Println(err)
+		}
+		w.Header().Set("Content-Type", "application/json; charset=utf8")
+		w.WriteHeader(http.StatusOK)
+		log.Println(w)
+		w.Write(response)
+
 	}
 }
