@@ -59,6 +59,10 @@ func (s *TODOService) ReadTODO(ctx context.Context, prevID, size int64) ([]*mode
 	return nil, nil
 }
 
+func (e *model.ErrNotFound) Error() string {
+
+}
+
 // UpdateTODO updates the TODO on DB.
 func (s *TODOService) UpdateTODO(ctx context.Context, id int64, subject, description string) (*model.TODO, error) {
 	const (
