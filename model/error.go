@@ -1,12 +1,22 @@
 package model
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type ErrNotFound struct {
-	When string
+	When time.Time
 	What string
 }
 
-func (e *ErrNotFound) Error() string {
-	return fmt.Sprintf("%s, %s", e.When, e.What)
+func (e *ErrNotFound) Error() error {
+	return fmt.Errorf("%s, %s", e.When, e.What)
+}
+
+func Run() *ErrNotFound {
+	return &ErrNotFound{
+		time.Now(),
+		"not updated",
+	}
 }
