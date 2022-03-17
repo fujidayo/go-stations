@@ -76,7 +76,7 @@ func (s *TODOService) UpdateTODO(ctx context.Context, id int64, subject, descrip
 		return nil, err
 	}
 
-	if confirmSubject == subject && confirmDescirption == description {
+	if confirmSubject == subject && confirmDescription == description {
 		return nil, model.Run().Error()
 	}
 	var created, updated time.Time
