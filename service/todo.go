@@ -65,8 +65,8 @@ func (s *TODOService) UpdateTODO(ctx context.Context, id int64, subject, descrip
 		update  = `UPDATE todos SET subject = ?, description = ? WHERE id = ?`
 		confirm = `SELECT subject, description, created_at, updated_at FROM todos WHERE id = ?`
 	)
-	var confirmSubject, confirmDescirption string
-	err := s.db.QueryRowContext(ctx, confirm, id).Scan(&subject, &description)
+	var confirmSubject, confirmDescription string
+	err := s.db.QueryRowContext(ctx, confirm, id).Scan(&confirmSubject, &confirmDescription)
 	if err != nil {
 		return nil, err
 	}
